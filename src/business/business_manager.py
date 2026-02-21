@@ -18,9 +18,9 @@ class Service(Enum):
 
 
 class BvService(Enum):
-    BV_BACHE = "BACHE"
-    BV_VINYL = "VINYL"
-    BV_STICKER = "STICKER"
+    BV_BACHE = "opt_bache"
+    BV_VINYL = "opt_vinyl"
+    BV_STICKER = "opt_sticker"
 
 service_messages = {
     Service.BV : "vinyle ou bien bache",

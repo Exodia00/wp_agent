@@ -1,11 +1,9 @@
 
 # todo: internationalization
 
-welcome = "Hello, we are in, "
+# todo: seperate the data and transltion from the content and structure
 
-ask_for_city = "What city are you in?"
-
-
+# todo: dad abstraction for the shared button structure
 
 def service_selection_get_values(number: str, lang: str = "ar"):
     if lang == "ar":
@@ -189,6 +187,7 @@ def ask_dimensions_get_values(number: str, lang: str):
         }
 
 
+# todo: The following exceeds the limit of buttons
 
 def activity_selection_get_values(number: str, lang: str):
     if lang == "ar":
@@ -359,8 +358,8 @@ def welcome_get_lang_values(number: str):
         "body": (
             "Bonjour, merci de nous avoir contactés !\n"
             "Salut! شكراً بزاف على تواصلك معانا.\n\n"
-            "Nous sommes une entreprise de design graphique située ici : <votre lien>\n"
-            "حنا شركة ديال الديزاين الكرافيكي، والمحل ديالنا كاين فـ الدار البيضاء، حي الأزهر البرنوصي: <الرابط>\n\n"
+            "Nous sommes une entreprise de design graphique située ici : https://maps.google.com/?q=33.599522,-7.481947\n"
+            "حنا شركة ديال الديزاين الكرافيكي، والمحل ديالنا كاين فـ الدار البيضاء، حي الأزهر البرنوصي: https://maps.google.com/?q=33.599522,-7.481947\n\n"
             "Veuillez choisir votre langue préférée :\n"
             "اختار اللغة اللي بغيتي :"
         ),
