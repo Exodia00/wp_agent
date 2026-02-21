@@ -23,12 +23,13 @@ class BvService(Enum):
     BV_STICKER = "STICKER"
 
 service_messages = {
-    Service.BV : "opt_bache",
-    Service.ROLLUP : "opt_vinyl",
-    Service.BEACH_FLAG : "opt_sticker"
+    Service.BV : "vinyle ou bien bache",
+    Service.ROLLUP : "Roll Up",
+    Service.BEACH_FLAG : "Beach Flag",
+    Service.X_BANNER : "X Banner"
 }
 
-def get_origin(text: str) -> tuple[MessageOrigin, Service | None]:
+def get_origin(text: str) -> tuple[MessageOrigin, str | None]:
     """
     Checks if the origin of the message is organic, or ad, based on the message sent checked against the preconfigured values
     :param text:
@@ -36,15 +37,16 @@ def get_origin(text: str) -> tuple[MessageOrigin, Service | None]:
     """
     # todo: test ad origin, there will be a bug because we are returning the service enum and not the str value
     for service, message in service_messages.items():
-        if message in text: return MessageOrigin.AD, service
+        if message in text: return MessageOrigin.AD, service.value
     return MessageOrigin.ORGANIC, None
 
 def get_service_from_msg(text: str) -> str | None:
-    # todo: Will have to be changed after introducing whatsapp select buttons
-    for service in Service:
-        if service.value == text: return service.value
-    return None
+    try:
+        return Service(text).value
+    except ValueError:
+        return None
 
+# todo: Change the following functions to use the breexisting enum functionality of python like the function above
 def get_bv_service_from_msg(text: str) -> str | None:
     for service in BvService:
         if service.value == text: return service.value
@@ -65,13 +67,14 @@ def is_new_lead(lead: Lead) -> bool:
     compared_to = lead.ended_at
 
     if lead.ended_at is None:
-        compared_to = lead.started_at
+        compared_to = lead.started_at       # todo: rethink this process
 
     grace_period_h = 72  # TODO: implement configuration pattern
 
     # Compare timedelta against timedelta
     return (datetime.now() - compared_to) > timedelta(hours=grace_period_h)     # todo: Check if this works well
 
+# todo: Mysql database should be injected, bellow we are harming the inversion of control
 
 def get_lead(number: str, phone_id: str):  # todo manage completed clients ?
     lead = LeadRepository(MySQLDatabase()).get_by_num(number, latest_only=True)   # todo: An error can be thrown here, to manage earlier. move any potential lead if they exist to unexpected
