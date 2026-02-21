@@ -50,7 +50,8 @@ def setup_db(conf: Config):
                 service VARCHAR(100),
                 activity VARCHAR(100),
                 is_organic BOOLEAN,
-                lang VARCHAR(2)
+                lang VARCHAR(2),
+                is_complete BOOLEAN
             ) CHARACTER SET {db_consts['CHARSET']} COLLATE utf8mb4_unicode_ci;
             """)
     conn.close()
