@@ -4,6 +4,17 @@ from typing import Optional
 
 # todo: Change the Lead usage to use the new property names
 
+# todo: This can be made to contain something like :
+"""
+lead.isComplete() which should set all the necesssary information for a lead when complete, instead of having upstream do it
+"""
+
+# todo: For safety, state and lang should be enums, and validated
+
+# todo: lang can be literal
+
+# todo: __POST_INIT__ validation
+
 @dataclass(slots=True)
 class Lead:
     id: Optional[int] = None
@@ -17,4 +28,5 @@ class Lead:
     activity: Optional[str] = None
     is_organic: Optional[bool] = None
     lang: Optional[str] = None
+    is_complete: bool = False
 
