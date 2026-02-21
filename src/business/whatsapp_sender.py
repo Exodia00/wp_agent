@@ -1,5 +1,5 @@
 import requests
-from flask import current_app
+from flask import current_app   # this makes the application context based and untestable
 
 
 # todo: make the message sending optional conditional from the configuration
@@ -9,6 +9,14 @@ from flask import current_app
 # message_type: "text" or "buttons"
 # values: For text -> string; For buttons -> dict with body + buttons list
 # access_token: Your WhatsApp Cloud API access token
+
+# todo: There is no error handling on the http request made
+# todo: In case of error, do some retry logic
+# todo: Add a timeout to the post call
+
+# todo: The response status code is not checked in the flow manager, it shouldn't be checked in the flow manager ...
+
+# todo: Mesage type is not safe checked
 
 def send_whatsapp_message(phone_number_id, message_type, values):
 
@@ -56,6 +64,7 @@ def send_whatsapp_message(phone_number_id, message_type, values):
     return response.status_code, response.text
 
 
+# todo: This is a receiving module, shouldn't be in a sending module
 def extract_user_input(message: dict) -> str:
     # Case 1: Normal text message
     if "text" in message:
