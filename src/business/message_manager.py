@@ -295,13 +295,62 @@ def final_thank_you_with_assets_get_values(number: str, lang: str):
         }
 
 
-def welcome_get_service(lang):
-    if lang == "fr" :
-        return "frensh get service"
-    else :
-        return "arabic get service"
-
-
+def welcome_service_selection_get_values(number: str, lang: str):
+    if lang == "ar":
+        return {
+            "to": number,
+            "body": (
+                "مرحبا! 👋\n"
+                "كتكلم دابا مع واحد من الفريق ديالنا.\n"
+                "شنو هي الخدمة اللي محتاج؟ اختار واحد من هاد الخدمات:"
+            ),
+            "buttons": [
+                {
+                    "type": "reply",
+                    "reply": {"id": "srv_bache_vinyl", "title": "باش / فينيل"}
+                },
+                {
+                    "type": "reply",
+                    "reply": {"id": "srv_beachflag", "title": "Beach Flag"}
+                },
+                {
+                    "type": "reply",
+                    "reply": {"id": "srv_rollup", "title": "Rollup"}
+                },
+                {
+                    "type": "reply",
+                    "reply": {"id": "srv_xbanner", "title": "X‑Banner"}
+                }
+            ]
+        }
+    else:
+        return {
+            "to": number,
+            "body": (
+                "Bienvenue ! 👋\n"
+                "Vous êtes en conversation avec un membre de notre équipe.\n"
+                "Quel service souhaitez‑vous ?\n"
+                "Veuillez choisir une option :"
+            ),
+            "buttons": [
+                {
+                    "type": "reply",
+                    "reply": {"id": "srv_bache_vinyl", "title": "Bâche / Vinyl"}
+                },
+                {
+                    "type": "reply",
+                    "reply": {"id": "srv_beachflag", "title": "Beach Flag"}
+                },
+                {
+                    "type": "reply",
+                    "reply": {"id": "srv_rollup", "title": "Rollup"}
+                },
+                {
+                    "type": "reply",
+                    "reply": {"id": "srv_xbanner", "title": "X‑Banner"}
+                }
+            ]
+        }
 
 
 def welcome_get_lang_values(number: str):

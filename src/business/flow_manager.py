@@ -205,7 +205,12 @@ def process_get_details_complete(lead: Lead, text: str) -> str:
         if lead.lang is not None :
             new_lead.state = State.GET_SERVICE.value
             save(new_lead)
-            return message_maager.welcome_get_service(lead.lang)   # TODO: use the send_whatsapp_message template
+
+            send_whatsapp_message(lead.phone_id, "buttons",
+                                  message_manager.welcome_service_selection_get_values(lead.num, lead.lang)
+                                  )
+
+            return "START NEW WITH LANG GET SERVICE"
         lead.state = State.GET_LANG.value
 
         send_whatsapp_message(lead.phone_id, "buttons",
