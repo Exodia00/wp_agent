@@ -4,6 +4,17 @@ from enum import Enum
 from business import message_manager
 # todo: will need logs
 
+# todo: Send Whatsapp message should not be called from here, it is not clean.
+
+# todo: The process function should be kept in its own file, see design patterns like the strategy pattern or better, asis is not clean
+
+# todo: The flow methods returning strings can be improved. change maybe to state, log instead of returning !
+
+# todo: No error handling : if send whatsapp message fails, the lead's state is updated but not saved, in case of any error, move the lead to state unexpected
+
+# todo: Rename the following :
+"""process_get_details_complete doesn't get details — it handles restarting a conversation for returning users. The name is misleading. get_lead, save, is_new_lead are vague; their side effects and contracts aren't obvious from the signatures."""
+
 from business.business_manager import get_origin, MessageOrigin, Service, get_service_from_msg, is_new_lead, get_lead, save, \
     get_bv_service_from_msg, is_bv_service
 from business.whatsapp_sender import send_whatsapp_message
@@ -48,9 +59,7 @@ def process(lead: Lead, text: str) -> str:
         return process_get_dim(lead, text)
     if state == State.GET_ACTIVITY.value:
         return process_get_activity(lead, text)
-    if state == State.COMPLETE.value:
-        return process_complete(lead, text)
-    if state == State.COMPLETE or state == State.UNEXPECTED:
+    if state == State.COMPLETE.value or state == State.UNEXPECTED.value:
         return process_get_details_complete(lead, text)
 
     # For state unexpected : don't display any message
@@ -220,10 +229,6 @@ def process_get_details_complete(lead: Lead, text: str) -> str:
         return "LANG_SELECTION_SENT"
     return "No message" # todo: implement maybe an error to be caught !
 
-# todo : complete me
-def process_complete(lead: Lead, text: str) -> str:
-    if is_new_lead(lead):
-        new_lead = generate_lead_from(lead)
 
 def generate_lead_from(lead: Lead) -> Lead:
     result = Lead()
