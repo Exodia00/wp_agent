@@ -1,3 +1,4 @@
+import flask
 from dotenv import load_dotenv
 from flask import request
 
@@ -8,6 +9,11 @@ from setup import setup
 load_dotenv()
 
 app = setup()
+
+# todo: there are cases where it is not 200 that should be returned
+
+# todo : Idempotency Handling for duplicate message by message id ?
+
 
 @app.route("/webhook", methods=["GET", "POST"])
 def webhook():
@@ -20,15 +26,16 @@ def webhook():
     if request.method == "POST":
         return handle_message(request)
 
+# todo : No Webhook Signature Verification
 
 def verify_challenge(mode: str, token: str, challenge: str):
 
-    if mode=="subscribe" and token == app.config['META_VERIFY_TOKEN'] :
+    if mode=="subscribe" and token == app.config['META_VERIFY_TOKEN'] :      # todo: Check hmac.compare_digest
         return challenge, 200, {"Content-Type": "text/plain"}
     return "Verification failed", 403
 
 
-def handle_message(r: request):
+def handle_message(r: flask.Request):
     # 1. Get the message :
     data = r.json
 
