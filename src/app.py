@@ -2,7 +2,7 @@ import flask
 from dotenv import load_dotenv
 from flask import request
 
-from business.flow_manager import handle_flow
+from business.flow.flow_manager import FlowManager
 from business.whatsapp_sender import extract_user_input
 from setup import setup
 
@@ -52,7 +52,9 @@ def handle_message(r: flask.Request):
         from_number = message["from"]
         text = extract_user_input(message)
 
-        handle_flow(from_number, phone_id, text)    # todo: Async
+        flow_manager = FlowManager(from_number, phone_id, text)
+
+        flow_manager.process()
 
         return "OK", 200
 

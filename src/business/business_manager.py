@@ -76,12 +76,13 @@ def is_new_lead(lead: Lead) -> bool:
 
 # todo: Mysql database should be injected, bellow we are harming the inversion of control
 
-def get_lead(number: str, phone_id: str):  # todo manage completed clients ?
-    lead = LeadRepository(MySQLDatabase()).get_by_num(number, latest_only=True)   # todo: An error can be thrown here, to manage earlier. move any potential lead if they exist to unexpected
+def get_lead(number: str, phone_id: str, db: MySQLDatabase):  # todo manage completed clients ?
+    lead = LeadRepository(db).get_by_num(number, latest_only=True)   # todo: An error can be thrown here, to manage earlier. move any potential lead if they exist to unexpected
     if lead is None :
         return Lead(num=number, phone_id=phone_id)
     return lead
 
+# todo: pass db instance like get_lead, then refactor
 def save(lead: Lead):
     #todo: Call repository add or update
     repo = LeadRepository(MySQLDatabase())

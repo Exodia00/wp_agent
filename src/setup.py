@@ -3,6 +3,10 @@ import mysql.connector
 
 from config import Config, DatabaseConfig, DevelopmentConfig
 
+# todo :Refactore this class
+
+# todo: The setup method can be used for the dependency injection
+
 db_consts = {
     "CHARSET" : "utf8mb4"
 }

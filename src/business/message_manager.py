@@ -5,6 +5,10 @@
 
 # todo: dad abstraction for the shared button structure
 
+# todo: Rename to message builder
+
+# todo: some mistakes in the messages to be corrected
+
 def service_selection_get_values(number: str, lang: str = "ar"):
     if lang == "ar":
         return {
@@ -187,7 +191,7 @@ def ask_dimensions_get_values(number: str, lang: str):
         }
 
 
-# todo: The following exceeds the limit of buttons
+# todo: The following exceeds the limit of buttons, change to list
 
 def activity_selection_get_values(number: str, lang: str):
     if lang == "ar":

@@ -2,6 +2,8 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Optional
 
+from domain.enums import State
+
 # todo: Change the Lead usage to use the new property names
 
 # todo: This can be made to contain something like :
@@ -20,7 +22,7 @@ class Lead:
     id: Optional[int] = None
     num: str = field(default="")
     phone_id: str = field(default="")
-    state: Optional[str] = None
+    state: Optional[State] = None       # todo: since it was changed to type State, it might cause isues when saving, the saving method should use the State.value
     started_at: Optional[datetime] = None
     ended_at: Optional[datetime] = None
     in_casa: Optional[bool] = None

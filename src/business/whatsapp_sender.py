@@ -1,6 +1,7 @@
 import requests
 from flask import current_app   # this makes the application context based and untestable
 
+# todo: Move to infrastructure/whatsapp and create a separate whatsapp_parser within to understand whatsapp message format, which also means refactoring the handle messagge in app.py
 
 # todo: make the message sending optional conditional from the configuration
 

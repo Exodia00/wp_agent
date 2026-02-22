@@ -3,6 +3,9 @@ from infrastructure.db import MySQLDatabase
 from infrastructure.query_manager import LeadQueries
 
 
+# todo: LeadRepository should be in infrastructure, domain should contain the abstraction / interface -- Move it
+# todo: To be moved to infrastructure/repositories/lead_repository.py
+
 class LeadRepository:
 
     db : MySQLDatabase
