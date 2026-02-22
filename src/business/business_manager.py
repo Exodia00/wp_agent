@@ -1,20 +1,15 @@
 from datetime import datetime, timedelta
 from enum import Enum
 
+from domain.enums import Service
 from domain.lead import Lead
-from domain.lead_repository import LeadRepository
-from infrastructure.db import MySQLDatabase
 
 
 class MessageOrigin(Enum):
     ORGANIC = 1
     AD = 2
 
-class Service(Enum):
-    BV = "srv_bache_vinyl"
-    BEACH_FLAG = "srv_beachflag"
-    ROLLUP = "srv_rollup"
-    X_BANNER = "srv_xbanner"
+
 
 
 class BvService(Enum):

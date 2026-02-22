@@ -33,10 +33,11 @@ class Lead:
     is_complete: bool = False
 
 
-    def new_from(self, lead: Self):
+    def new_from(self, lead: Self) -> Self:
         self.num = lead.num
         self.phone_id = lead.phone_id
         self.lang = lead.lang
+        return self
 
     def start(self):
         self.started_at = datetime.now()

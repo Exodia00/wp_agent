@@ -13,3 +13,8 @@ class State(str, Enum):
     GET_ACTIVITY = "ACTIVITY"
     COMPLETE = "COMPLETE"
 
+class Service(str, Enum):
+    BV = "srv_bache_vinyl"
+    BEACH_FLAG = "srv_beachflag"
+    ROLLUP = "srv_rollup"
+    X_BANNER = "srv_xbanner"

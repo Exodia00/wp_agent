@@ -1,13 +1,13 @@
 from datetime import datetime
 
 from business import message_manager
-from business.business_manager import get_lead, get_origin, MessageOrigin, Service, get_service_from_msg, \
-    get_bv_service_from_msg, is_bv_service, is_new_lead, save
+from business.business_manager import get_origin, MessageOrigin, get_service_from_msg, \
+    get_bv_service_from_msg, is_bv_service, is_new_lead
 from business.flow.flow import IFlowManager
 from business.flow.flow_resolver import resolve
 
 from business.whatsapp_sender import send_whatsapp_message
-from domain.enums import State
+from domain.enums import State, Service
 from domain.lead import Lead
 from domain.lead_repository import LeadRepository
 from infrastructure.db import MySQLDatabase
@@ -26,10 +26,8 @@ class FlowManager(IFlowManager):
 
         self.lead_repo = LeadRepository(db)
 
+        # todo: this shouldn't be in init, move to process ?
         self.lead = self.lead_repo.try_get_latest(num, phone_id)
-
-        # get the lead
-        self.lead = get_lead(num, phone_id) # todo: This method should probably be defined in LeadRepository
 
     # todo: This should be made async
     def process(self):
@@ -74,6 +72,7 @@ class FlowManager(IFlowManager):
                                   )
             return
 
+        # todo: this failed, why >
         if self.lead.service == Service.BV: # todo: Move to Enums
             self.lead.state = State.GET_SERVICE_BV
 
@@ -185,7 +184,7 @@ class FlowManager(IFlowManager):
             new_lead.start()
             if self.lead.lang is not None:
                 new_lead.state = State.GET_SERVICE
-                save(new_lead)  # todo: rethink moving this elsewhere, repository ?
+                self.lead_repo.add_or_update(new_lead)
 
                 send_whatsapp_message(self.lead.phone_id, "buttons",
                                       message_manager.welcome_service_selection_get_values(self.lead.num, self.lead.lang)
