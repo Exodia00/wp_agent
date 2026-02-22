@@ -32,7 +32,9 @@ class Config:
     META_ACCESS_TOKEN = os.environ.get("META_ACCESS_TOKEN")
 
     GRACE_PERIOD = os.environ.get("GRACE_PERIOD")
+    ADMIN_NUM = os.environ.get("ADMINISTRATOR")
 
+    ENABLED = True
 
 # todo: Complete me with development properties, do the same for Meta config
 class DevelopmentConfig(Config):

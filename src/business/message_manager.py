@@ -338,3 +338,29 @@ def welcome_get_lang_values(number: str):
             }
         ]
     }
+
+
+def bot_started_get_values(number: str):
+    return {
+        "to": number,
+        "body": "✅ Bot démarré avec succès."
+    }
+
+
+def bot_stopped_get_values(number: str):
+    return {
+        "to": number,
+        "body": "🛑 Bot arrêté avec succès."
+    }
+
+
+def invalid_admin_command_get_values(number: str):
+    return {
+        "to": number,
+        "body": (
+            "❌ Commande invalide.\n"
+            "Les commandes disponibles sont :\n"
+            "/start — démarrer le bot\n"
+            "/stop — arrêter le bot"
+        )
+    }

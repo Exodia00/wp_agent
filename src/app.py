@@ -1,7 +1,8 @@
 import flask
 from dotenv import load_dotenv
-from flask import request
+from flask import request, current_app
 
+from business.admin.admin_manager import AdminManager
 from business.flow.flow_manager import FlowManager
 from business.whatsapp_sender import extract_user_input
 from infrastructure.db import MySQLDatabase
@@ -61,9 +62,15 @@ def handle_message(r: flask.Request):
         text = extract_user_input(message)
 
 
-        flow_manager = FlowManager(from_number, phone_id, text, MySQLDatabase())
+        if from_number == current_app.config['ADMIN_NUM']:
+            admin_manager = AdminManager(from_number, phone_id)
+            admin_manager.process(text)
+            return "OK", 200
 
-        flow_manager.process()
+        if current_app.config['ENABLED']:
+            flow_manager = FlowManager(from_number, phone_id, text, MySQLDatabase())
+
+            flow_manager.process()
 
         return "OK", 200
 
