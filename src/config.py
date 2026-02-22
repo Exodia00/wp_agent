@@ -31,6 +31,8 @@ class Config:
     META_MESSAGE_URL = os.environ.get("META_MESSAGE_URL")
     META_ACCESS_TOKEN = os.environ.get("META_ACCESS_TOKEN")
 
+    GRACE_PERIOD = os.environ.get("GRACE_PERIOD")
+
 
 # todo: Complete me with development properties, do the same for Meta config
 class DevelopmentConfig(Config):

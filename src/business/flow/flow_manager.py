@@ -70,7 +70,7 @@ class FlowManager(IFlowManager):
         if self.lead.service is None or self.lead.service == "":
             self.lead.state = State.GET_SERVICE
 
-            send_whatsapp_message(self.lead.phone_id, "buttons",
+            send_whatsapp_message(self.lead.phone_id, "list",
                                   message_manager.service_selection_get_values(self.lead.num, self.lead.lang)
                                   )
             return
@@ -101,10 +101,7 @@ class FlowManager(IFlowManager):
             return
 
         if service is None:
-            self.lead.state = State.UNEXPECTED  # todo: process UNEXPECTED
-            # todo: Call lead.complete(expected=false)
-            self.lead.is_complete = True  # todo: This should be moved to manage unexpected, and have it set ended_at instead.
-            self.lead.ended_at = datetime.now()
+            self.lead.complete(False)
 
             send_whatsapp_message(self.lead.phone_id, "text",
                                   message_manager.thank_you_get_values(self.lead.num, self.lead.lang))
@@ -121,10 +118,7 @@ class FlowManager(IFlowManager):
         service = get_bv_service_from_msg(self.message) # todo: refactor
 
         if service is None:
-            # todo: Call lead.complete(expected=false)
-            self.lead.state = State.UNEXPECTED  # todo: process UNEXPECTED
-            self.lead.is_complete = True  # todo: remove
-            self.lead.ended_at = datetime.now()
+            self.lead.complete(False)
 
             send_whatsapp_message(self.lead.phone_id, "text",
                                   message_manager.thank_you_get_values(self.lead.num, self.lead.lang))
@@ -159,11 +153,7 @@ class FlowManager(IFlowManager):
         return
 
     def get_dim(self):
-
-        self.lead.complete(expected=True)
-        self.lead.state = State.COMPLETE
-        self.lead.ended_at = datetime.now()
-
+        self.lead.complete(is_expected=True)
 
         send_whatsapp_message(self.lead.phone_id, "text",
                               message_manager.final_thank_you_with_assets_get_values(self.lead.num, self.lead.lang))
@@ -172,9 +162,7 @@ class FlowManager(IFlowManager):
 
     def get_activity(self):
         self.lead.activity = self.message
-        # todo: call lead.complete()
-        self.lead.state = State.COMPLETE
-        self.lead.ended_at = datetime.now()
+        self.lead.complete(True)
 
         send_whatsapp_message(self.lead.phone_id, "text",
                               message_manager.final_thank_you_with_assets_get_values(self.lead.num, self.lead.lang))

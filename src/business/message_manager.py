@@ -16,54 +16,42 @@ def service_selection_get_values(number: str, lang: str = "ar"):
     if lang == "ar":
         return {
             "to": number,
+            "header": "🤖 خدماتنا",
             "body": (
-                BOT_INDICATOR_AR  + "\n" +
-                "شنو هي الخدمة اللي باغي؟\n"
-                "اختار واحد من هاد الاختيارات:"
+                BOT_INDICATOR_AR + "\n" +
+                "شنو هي الخدمة اللي باغي؟"
             ),
-            "buttons": [
+            "button": "شوف الخدمات",
+            "sections": [
                 {
-                    "type": "reply",
-                    "reply": {"id": "srv_bache_vinyl", "title": "باش / ڤينيل"}
-                },
-                {
-                    "type": "reply",
-                    "reply": {"id": "srv_beachflag", "title": "Beach Flag"}
-                },
-                {
-                    "type": "reply",
-                    "reply": {"id": "srv_rollup", "title": "Rollup"}
-                },
-                {
-                    "type": "reply",
-                    "reply": {"id": "srv_xbanner", "title": "X‑Banner"}
+                    "title": "الخدمات",
+                    "rows": [
+                        {"id": "srv_bache_vinyl", "title": "باش / ڤينيل"},
+                        {"id": "srv_beachflag",   "title": "Beach Flag"},
+                        {"id": "srv_rollup",       "title": "Rollup"},
+                        {"id": "srv_xbanner",      "title": "X‑Banner"}
+                    ]
                 }
             ]
         }
     else:
         return {
             "to": number,
+            "header": "🤖 Nos services",
             "body": (
-                BOT_INDICATOR_FR  + "\n" +
-                "Quel service souhaitez‑vous ?\n"
-                "Veuillez choisir une option :"
+                BOT_INDICATOR_FR + "\n" +
+                "Quel service souhaitez‑vous ?"
             ),
-            "buttons": [
+            "button": "Voir les services",
+            "sections": [
                 {
-                    "type": "reply",
-                    "reply": {"id": "srv_bache_vinyl", "title": "Bâche / Vinyl"}
-                },
-                {
-                    "type": "reply",
-                    "reply": {"id": "srv_beachflag", "title": "Beach Flag"}
-                },
-                {
-                    "type": "reply",
-                    "reply": {"id": "srv_rollup", "title": "Rollup"}
-                },
-                {
-                    "type": "reply",
-                    "reply": {"id": "srv_xbanner", "title": "X‑Banner"}
+                    "title": "Services",
+                    "rows": [
+                        {"id": "srv_bache_vinyl", "title": "Bâche / Vinyl"},
+                        {"id": "srv_beachflag",   "title": "Beach Flag"},
+                        {"id": "srv_rollup",       "title": "Rollup"},
+                        {"id": "srv_xbanner",      "title": "X‑Banner"}
+                    ]
                 }
             ]
         }
@@ -331,8 +319,7 @@ def welcome_get_lang_values(number: str):
     return {
         "to": number,
         "body": (
-            "🤖 هاد الردود تلقائية — غادي يتواصل معاك واحد من الفريق ديالنا بعد شوية.\n"
-            "🤖 Ce service est automatisé — un membre de notre équipe vous contactera ensuite.\n\n"
+            BOT_INDICATOR_AR  + BOT_INDICATOR_FR + "\n"
             "Bonjour, merci de nous avoir contactés !\n"
             "شكراً بزاف على تواصلك معانا! 👋\n\n"
             "Nous sommes une entreprise de design graphique située ici : https://maps.google.com/?q=33.599522,-7.481947\n"

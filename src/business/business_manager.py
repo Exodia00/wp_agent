@@ -1,6 +1,8 @@
 from datetime import datetime, timedelta
 from enum import Enum
 
+from flask import current_app
+
 from domain.enums import Service
 from domain.lead import Lead
 
@@ -64,10 +66,12 @@ def is_new_lead(lead: Lead) -> bool:
     if lead.ended_at is None:
         compared_to = lead.started_at       # todo: rethink this process
 
-    grace_period_h = 72  # TODO: implement configuration pattern
+
+
+    grace_period_h = current_app.config['GRACE_PERIOD']
 
     # Compare timedelta against timedelta
-    return (datetime.now() - compared_to) > timedelta(hours=grace_period_h)     # todo: Check if this works well
+    return (datetime.now() - compared_to) > timedelta(hours=int(grace_period_h))     # todo: Check if this works well
 
 # todo: Mysql database should be injected, bellow we are harming the inversion of control
 
