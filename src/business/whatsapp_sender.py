@@ -23,8 +23,8 @@ def send_whatsapp_message(phone_number_id, message_type, values):
 
     # todo : debug purposes : delete later
 
-    print(values)
-    return
+    # print(values)
+    # return
 
     access_token = current_app.config['META_ACCESS_TOKEN']
 
@@ -62,10 +62,33 @@ def send_whatsapp_message(phone_number_id, message_type, values):
             }
         }
 
+    elif message_type == "list":
+        payload = {
+            "messaging_product": "whatsapp",
+            "to": values.get("to"),
+            "type": "interactive",
+            "interactive": {
+                "type": "list",
+                "header": {
+                    "type": "text",
+                    "text": values.get("header", "")
+                },
+                "body": {
+                    "text": values.get("body")
+                },
+                "action": {
+                    "button": values.get("button"),
+                    "sections": values.get("sections")
+                }
+            }
+        }
+
     else:
         raise ValueError("Invalid message type. Must be 'text' or 'buttons'.")
 
     response = requests.post(url, headers=headers, json=payload)
+
+    print(response.text)
 
     return response.status_code, response.text
 
@@ -76,9 +99,16 @@ def extract_user_input(message: dict) -> str:
     if "text" in message:
         return message["text"]["body"].strip()
 
-    # Case 2: Button reply
-    if "interactive" in message and message["interactive"]["type"] == "button_reply":
-        return message["interactive"]["button_reply"]["id"]
+    if "interactive" in message:
+        interactive_type = message["interactive"]["type"]
 
-    # Case 3: Unknown type
-    return ""   # todo : Handle this case
+        # Case 2: Button reply
+        if interactive_type == "button_reply":
+            return message["interactive"]["button_reply"]["id"]
+
+        # Case 3: List selection
+        if interactive_type == "list_reply":
+            return message["interactive"]["list_reply"]["id"]
+
+    # Case 4: Unknown type
+    return ""

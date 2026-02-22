@@ -18,4 +18,8 @@ def resolve(state: State, flow_manager: IFlowManager) -> Callable:
         State.COMPLETE: flow_manager.complete
     }
 
-    return resolved.get(state, flow_manager.unexpected)
+    fn =  resolved.get(state, flow_manager.unexpected)
+
+    print(f"Resolved : {fn}")
+
+    return fn

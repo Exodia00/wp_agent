@@ -32,6 +32,8 @@ class FlowManager(IFlowManager):
     # todo: This should be made async
     def process(self):
 
+        print(f"Starting process for {self.lead}")
+
         if self.lead.state is None : self.lead.start()
 
         fn = resolve(self.lead.state, self)
@@ -39,6 +41,7 @@ class FlowManager(IFlowManager):
         fn()
 
         self.lead_repo.add_or_update(self.lead)
+
 
 
     # ---------- Flow :
@@ -150,7 +153,7 @@ class FlowManager(IFlowManager):
 
         self.lead.state = State.GET_ACTIVITY
 
-        send_whatsapp_message(self.lead.phone_id, "buttons",
+        send_whatsapp_message(self.lead.phone_id, "list",
                               message_manager.activity_selection_get_values(self.lead.num, self.lead.lang))
 
         return
@@ -186,7 +189,7 @@ class FlowManager(IFlowManager):
                 new_lead.state = State.GET_SERVICE
                 self.lead_repo.add_or_update(new_lead)
 
-                send_whatsapp_message(self.lead.phone_id, "buttons",
+                send_whatsapp_message(self.lead.phone_id, "list",
                                       message_manager.welcome_service_selection_get_values(self.lead.num, self.lead.lang)
                                       )
 

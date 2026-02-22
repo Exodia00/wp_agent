@@ -18,6 +18,9 @@ app = setup()
 
 @app.route("/webhook", methods=["GET", "POST"])
 def webhook():
+
+    print('call received')
+
     if request.method == "GET":
         mode = request.args.get("hub.mode")
         token = request.args.get("hub.verify_token")
@@ -39,6 +42,10 @@ def verify_challenge(mode: str, token: str, challenge: str):
 def handle_message(r: flask.Request):
     # 1. Get the message :
     data = r.json
+
+    # todo: delete all print statements
+
+    print(data)
 
     try:
         entry = data["entry"][0]
