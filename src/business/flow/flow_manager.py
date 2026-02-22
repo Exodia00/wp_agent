@@ -26,8 +26,10 @@ class FlowManager(IFlowManager):
 
         self.lead_repo = LeadRepository(db)
 
+        self.lead = self.lead_repo.try_get_latest(num, phone_id)
+
         # get the lead
-        self.lead = get_lead(num, phone_id, db) # todo: This method should probably be defined in LeadRepository
+        self.lead = get_lead(num, phone_id) # todo: This method should probably be defined in LeadRepository
 
     # todo: This should be made async
     def process(self):
@@ -38,7 +40,7 @@ class FlowManager(IFlowManager):
 
         fn()
 
-        save(self.lead)
+        self.lead_repo.add_or_update(self.lead)
 
 
     # ---------- Flow :

@@ -45,7 +45,7 @@ def handle_message(r: flask.Request):
         changes = entry["changes"][0]
         values = changes["value"]
 
-        if "messages" not in values:
+        if "messages" not in values:    # this is useful for updates like read ...
             return "No Message", 200    # todo: async handling to put the user in async state
 
         phone_id = values["metadata"]["phone_number_id"]  # fix
