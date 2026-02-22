@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Optional
+from typing import Optional, Self
 
 from domain.enums import State
 
@@ -32,3 +32,12 @@ class Lead:
     lang: Optional[str] = None
     is_complete: bool = False
 
+
+    def new_from(self, lead: Self):
+        self.num = lead.num
+        self.phone_id = lead.phone_id
+        self.lang = lead.lang
+
+    def start(self):
+        self.started_at = datetime.now()
+        self.state = State.START

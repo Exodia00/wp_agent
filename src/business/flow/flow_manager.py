@@ -6,7 +6,6 @@ from business.business_manager import get_lead, get_origin, MessageOrigin, Servi
 from business.flow.flow import IFlowManager
 from business.flow.flow_resolver import resolve
 
-from business.flow_manager_legacy import generate_lead_from
 from business.whatsapp_sender import send_whatsapp_message
 from domain.enums import State
 from domain.lead import Lead
@@ -33,6 +32,8 @@ class FlowManager(IFlowManager):
     # todo: This should be made async
     def process(self):
 
+        if self.lead.state is None : self.lead.start()
+
         fn = resolve(self.lead.state, self)
 
         fn()
@@ -46,7 +47,7 @@ class FlowManager(IFlowManager):
 
     def start(self):
         origin, service = get_origin(self.message)
-        self.lead.started_at = datetime.now()
+        self.lead.start()
         self.lead.service = service
         self.lead.is_organic = origin == MessageOrigin.ORGANIC # todo: Move this to domain.Enums
         self.lead.state = State.GET_LANG
@@ -178,11 +179,8 @@ class FlowManager(IFlowManager):
     def complete(self):
         # check if the conversation has already ended ?
         if is_new_lead(self.lead):
-            new_lead = generate_lead_from(self.lead)
-            # todo: call new_lead.start()
-            new_lead.state = State.START
-            new_lead.started_at = datetime.now()
-            new_lead.num = self.lead.num
+            new_lead = Lead().new_from(self.lead)
+            new_lead.start()
             if self.lead.lang is not None:
                 new_lead.state = State.GET_SERVICE
                 save(new_lead)  # todo: rethink moving this elsewhere, repository ?
