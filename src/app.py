@@ -4,6 +4,7 @@ from flask import request
 
 from business.flow.flow_manager import FlowManager
 from business.whatsapp_sender import extract_user_input
+from infrastructure.db import MySQLDatabase
 from setup import setup
 
 load_dotenv()
@@ -47,12 +48,13 @@ def handle_message(r: flask.Request):
         if "messages" not in values:
             return "No Message", 200    # todo: async handling to put the user in async state
 
-        phone_id = entry["id"]
+        phone_id = values["metadata"]["phone_number_id"]  # fix
         message = values["messages"][0]
         from_number = message["from"]
         text = extract_user_input(message)
 
-        flow_manager = FlowManager(from_number, phone_id, text)
+
+        flow_manager = FlowManager(from_number, phone_id, text, MySQLDatabase())
 
         flow_manager.process()
 

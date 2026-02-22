@@ -21,6 +21,11 @@ from flask import current_app   # this makes the application context based and u
 
 def send_whatsapp_message(phone_number_id, message_type, values):
 
+    # todo : debug purposes : delete later
+
+    print(values)
+    return
+
     access_token = current_app.config['META_ACCESS_TOKEN']
 
     meta_base_url = current_app.config['META_MESSAGE_URL']
