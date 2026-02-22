@@ -1,19 +1,23 @@
-
 # todo: internationalization
 
-# todo: seperate the data and transltion from the content and structure
+# todo: separate the data and translation from the content and structure
 
-# todo: dad abstraction for the shared button structure
+# todo: add abstraction for the shared button structure
 
 # todo: Rename to message builder
 
 # todo: some mistakes in the messages to be corrected
+
+BOT_INDICATOR_AR = "🤖 هاد المحادثة أوتوماتيكية\n\n"
+BOT_INDICATOR_FR = "🤖 Ce service est automatisé \n\n"
+
 
 def service_selection_get_values(number: str, lang: str = "ar"):
     if lang == "ar":
         return {
             "to": number,
             "body": (
+                BOT_INDICATOR_AR  + "\n" +
                 "شنو هي الخدمة اللي باغي؟\n"
                 "اختار واحد من هاد الاختيارات:"
             ),
@@ -40,6 +44,7 @@ def service_selection_get_values(number: str, lang: str = "ar"):
         return {
             "to": number,
             "body": (
+                BOT_INDICATOR_FR  + "\n" +
                 "Quel service souhaitez‑vous ?\n"
                 "Veuillez choisir une option :"
             ),
@@ -69,7 +74,8 @@ def bache_vinyl_get_values(number: str, lang: str):
         return {
             "to": number,
             "body": (
-                "شحال بغيتي تدير؟\n"
+                BOT_INDICATOR_AR  + "\n" +
+                "آش بغيتي بالضبط؟\n"
                 "اختار واحد من هاد الاختيارات:"
             ),
             "buttons": [
@@ -91,6 +97,7 @@ def bache_vinyl_get_values(number: str, lang: str):
         return {
             "to": number,
             "body": (
+                BOT_INDICATOR_FR  + "\n" +
                 "Quel type souhaitez‑vous ?\n"
                 "Veuillez choisir une option :"
             ),
@@ -111,12 +118,12 @@ def bache_vinyl_get_values(number: str, lang: str):
         }
 
 
-
 def are_you_in_casa_get_values(number: str, lang: str):
     if lang == "ar":
         return {
             "to": number,
             "body": (
+                BOT_INDICATOR_AR  + "\n" +
                 "واش كتوجد فكازا ؟\n"
                 "اختار نعم ولا:"
             ),
@@ -135,6 +142,7 @@ def are_you_in_casa_get_values(number: str, lang: str):
         return {
             "to": number,
             "body": (
+                BOT_INDICATOR_FR  + "\n" +
                 "Êtes‑vous à Casablanca ?\n"
                 "Veuillez choisir :"
             ),
@@ -151,12 +159,12 @@ def are_you_in_casa_get_values(number: str, lang: str):
         }
 
 
-
 def thank_you_get_values(number: str, lang: str):
     if lang == "ar":
         return {
             "to": number,
             "body": (
+                BOT_INDICATOR_AR  + "\n" +
                 "شكراً بزاف على وقتك!\n"
                 "غادي يتواصل معاك واحد من الفريق ديالنا قريباً إن شاء الله."
             )
@@ -165,11 +173,11 @@ def thank_you_get_values(number: str, lang: str):
         return {
             "to": number,
             "body": (
+                BOT_INDICATOR_FR  + "\n" +
                 "Merci pour votre temps !\n"
                 "Un membre de notre équipe vous contactera très bientôt."
             )
         }
-
 
 
 def ask_dimensions_get_values(number: str, lang: str):
@@ -177,6 +185,7 @@ def ask_dimensions_get_values(number: str, lang: str):
         return {
             "to": number,
             "body": (
+                BOT_INDICATOR_AR  + "\n" +
                 "👌\n"
                 "شنو هي الأبعاد اللي بغيتي؟"
             )
@@ -185,20 +194,20 @@ def ask_dimensions_get_values(number: str, lang: str):
         return {
             "to": number,
             "body": (
+                BOT_INDICATOR_FR + "\n"
                 "Parfait ! 👌\n"
                 "Quelles dimensions souhaitez‑vous ?"
             )
         }
 
 
-# todo: The following exceeds the limit of buttons, change to list
-
 def activity_selection_get_values(number: str, lang: str):
     if lang == "ar":
         return {
             "to": number,
-            "header": "النشاط",
+            "header": "🤖 النشاط",
             "body": (
+                BOT_INDICATOR_AR  + "\n" +
                 "مزيان! باش نكمّلو معاك، قول ليا النشاط ديال المشروع ديالك:"
             ),
             "button": "شوف الاختيارات",
@@ -220,8 +229,9 @@ def activity_selection_get_values(number: str, lang: str):
     else:
         return {
             "to": number,
-            "header": "Votre activité",
+            "header": "🤖 Votre activité",
             "body": (
+                BOT_INDICATOR_FR  + "\n" +
                 "Parfait ! Pour mieux comprendre votre besoin, merci d'indiquer votre activité :"
             ),
             "button": "Voir les options",
@@ -242,12 +252,12 @@ def activity_selection_get_values(number: str, lang: str):
         }
 
 
-
 def final_thank_you_with_assets_get_values(number: str, lang: str):
     if lang == "ar":
         return {
             "to": number,
             "body": (
+                BOT_INDICATOR_AR  + "\n" +
                 "شكراً بزاف على وقتك!\n"
                 "واحد من الفريق ديالنا غادي يتاصل بيك قريباً إن شاء الله.\n\n"
                 "إلا كان عندك شي صور، لوغو، نصوص، أفكار، أو أي تفاصيل بغيتي ندمجوهم فالتصميم، "
@@ -258,20 +268,23 @@ def final_thank_you_with_assets_get_values(number: str, lang: str):
         return {
             "to": number,
             "body": (
+                BOT_INDICATOR_FR + "\n" +
                 "Merci pour votre temps !\n"
-                "L’un de nos agents vous contactera très bientôt.\n\n"
+                "L'un de nos agents vous contactera très bientôt.\n\n"
                 "Si vous avez des images, logos, textes, idées ou tout autre élément que vous souhaitez "
-                "inclure dans le design, n’hésitez pas à les envoyer directement dans cette conversation "
+                "inclure dans le design, n'hésitez pas à les envoyer directement dans cette conversation "
                 "afin que nous puissions les utiliser."
             )
         }
+
 
 def welcome_service_selection_get_values(number: str, lang: str):
     if lang == "ar":
         return {
             "to": number,
-            "header": "خدماتنا",
+            "header": "🤖 خدماتنا",
             "body": (
+                BOT_INDICATOR_AR  + "\n" +
                 "مرحبا! 👋\n"
                 "كتكلم دابا مع واحد من الفريق ديالنا.\n"
                 "شنو هي الخدمة اللي محتاج؟"
@@ -292,8 +305,9 @@ def welcome_service_selection_get_values(number: str, lang: str):
     else:
         return {
             "to": number,
-            "header": "Nos services",
+            "header": "🤖 Nos services",
             "body": (
+                BOT_INDICATOR_FR  + "\n" +
                 "Bienvenue ! 👋\n"
                 "Vous êtes en conversation avec un membre de notre équipe.\n"
                 "Quel service souhaitez-vous ?"
@@ -317,8 +331,10 @@ def welcome_get_lang_values(number: str):
     return {
         "to": number,
         "body": (
+            "🤖 هاد الردود تلقائية — غادي يتواصل معاك واحد من الفريق ديالنا بعد شوية.\n"
+            "🤖 Ce service est automatisé — un membre de notre équipe vous contactera ensuite.\n\n"
             "Bonjour, merci de nous avoir contactés !\n"
-            "Salut! شكراً بزاف على تواصلك معانا.\n\n"
+            "شكراً بزاف على تواصلك معانا! 👋\n\n"
             "Nous sommes une entreprise de design graphique située ici : https://maps.google.com/?q=33.599522,-7.481947\n"
             "حنا شركة ديال الديزاين الكرافيكي، والمحل ديالنا كاين فـ الدار البيضاء، حي الأزهر البرنوصي: https://maps.google.com/?q=33.599522,-7.481947\n\n"
             "Veuillez choisir votre langue préférée :\n"
@@ -335,6 +351,3 @@ def welcome_get_lang_values(number: str):
             }
         ]
     }
-
-
-

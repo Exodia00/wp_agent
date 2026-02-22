@@ -42,3 +42,8 @@ class Lead:
     def start(self):
         self.started_at = datetime.now()
         self.state = State.START
+
+    def complete(self, is_expected: bool):
+        self.ended_at = datetime.now()
+        self.is_complete = True
+        self.state = State.COMPLETE if is_expected else State.UNEXPECTED

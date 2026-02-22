@@ -159,7 +159,8 @@ class FlowManager(IFlowManager):
         return
 
     def get_dim(self):
-        # todo: Call lead.complete()
+
+        self.lead.complete(expected=True)
         self.lead.state = State.COMPLETE
         self.lead.ended_at = datetime.now()
 
