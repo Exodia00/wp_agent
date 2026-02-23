@@ -47,5 +47,5 @@ class MySQLDatabase:
                     return cursor.fetchall() if list_all else cursor.fetchone()
                 return  cursor # todo : might be used to manage errors
         except Error as e:
-            print(e)
+            print(e)    # todo: log
             raise

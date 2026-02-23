@@ -20,6 +20,4 @@ def resolve(state: State, flow_manager: IFlowManager) -> Callable:
 
     fn =  resolved.get(state, flow_manager.unexpected)
 
-    print(f"Resolved : {fn}")
-
     return fn

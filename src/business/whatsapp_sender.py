@@ -20,17 +20,11 @@ from flask import current_app   # this makes the application context based and u
 # todo: Mesage type is not safe checked
 
 def send_whatsapp_message(phone_number_id, message_type, values):
-
-    # todo : debug purposes : delete later
-
-    # print(values)
-    # return
-
     access_token = current_app.config['META_ACCESS_TOKEN']
 
     meta_base_url = current_app.config['META_MESSAGE_URL']
-    #
-    url = f"{meta_base_url}/{phone_number_id}/messages"    # todo: Thi should be configuration aswell
+
+    url = f"{meta_base_url}/{phone_number_id}/messages"
 
     # todo : add case for development with message source not whatsapp but console for testing ????
 
@@ -87,8 +81,6 @@ def send_whatsapp_message(phone_number_id, message_type, values):
         raise ValueError("Invalid message type. Must be 'text' or 'buttons'.")
 
     response = requests.post(url, headers=headers, json=payload)
-
-    print(response.text)
 
     return response.status_code, response.text
 

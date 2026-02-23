@@ -31,18 +31,10 @@ class FlowManager(IFlowManager):
 
     # todo: This should be made async
     def process(self):
-
-        print(f"Starting process for {self.lead}")
-
         if self.lead.state is None : self.lead.start()
-
         fn = resolve(self.lead.state, self)
-
         fn()
-
         self.lead_repo.add_or_update(self.lead)
-
-
 
     # ---------- Flow :
 
@@ -190,6 +182,7 @@ class FlowManager(IFlowManager):
                                   )
 
             return
+
         return "No message"  # todo: implement maybe an error to be caught !
 
     def unexpected(self):

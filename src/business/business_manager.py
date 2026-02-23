@@ -59,17 +59,13 @@ def is_new_lead(lead: Lead) -> bool:
     """
     Checks if a lead in the state Complete should be considered new and have a new conversation started.
     """
-
     # If the lead has no ended_at, it cannot be considered new
     compared_to = lead.ended_at
 
     if lead.ended_at is None:
         compared_to = lead.started_at       # todo: rethink this process
 
-
-
     grace_period_h = current_app.config['GRACE_PERIOD']
-
     # Compare timedelta against timedelta
     return (datetime.now() - compared_to) > timedelta(hours=int(grace_period_h))     # todo: Check if this works well
 
