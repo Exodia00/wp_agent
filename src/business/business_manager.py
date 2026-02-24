@@ -3,15 +3,8 @@ from enum import Enum
 
 from flask import current_app
 
-from domain.enums import Service
+from domain.enums import Service, MessageOrigin
 from domain.lead import Lead
-
-
-class MessageOrigin(Enum):
-    ORGANIC = 1
-    AD = 2
-
-
 
 
 class BvService(Enum):

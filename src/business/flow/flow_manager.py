@@ -42,7 +42,7 @@ class FlowManager(IFlowManager):
         origin, service = get_origin(self.message)
         self.lead.start()
         self.lead.service = service
-        self.lead.is_organic = origin == MessageOrigin.ORGANIC # todo: Move this to domain.Enums
+        self.lead.is_organic = origin == MessageOrigin.ORGANIC
         self.lead.state = State.GET_LANG
 
         # todo: The send_whatsapp message function will need some refactoring to adhere to a clean architecture

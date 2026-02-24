@@ -18,3 +18,8 @@ class Service(str, Enum):
     BEACH_FLAG = "srv_beachflag"
     ROLLUP = "srv_rollup"
     X_BANNER = "srv_xbanner"
+
+
+class MessageOrigin(str, Enum):
+    ORGANIC = 1
+    AD = 2
