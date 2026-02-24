@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from business import message_manager
 from business.business_manager import get_origin, MessageOrigin, get_service_from_msg, \
     get_bv_service_from_msg, is_bv_service, is_new_lead

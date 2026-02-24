@@ -5,6 +5,9 @@ from business.whatsapp_sender import send_whatsapp_message
 
 class AdminManager:
 
+    # todo: a problem to find the solution to : o2switch might kill the application after ome inactivity
+    # todo: the app killing creates various issues, like the first request taking more time to run
+
     START_INSTRUCTION = "/start"
     STOP_INSTRUCTION = "/stop"
 
