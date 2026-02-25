@@ -1,6 +1,6 @@
 from business import message_manager
 from business.application_manager import ApplicationManager
-from business.whatsapp_sender import send_whatsapp_message
+from infrastructure.whatsapp.whatsapp_sender import send_whatsapp_message
 
 
 class AdminManager:

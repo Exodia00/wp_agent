@@ -4,7 +4,7 @@ from business.business_manager import get_origin, MessageOrigin, get_service_fro
 from business.flow.flow import IFlowManager
 from business.flow.flow_resolver import resolve
 
-from business.whatsapp_sender import send_whatsapp_message
+from infrastructure.whatsapp.whatsapp_sender import send_whatsapp_message
 from domain.enums import State, Service
 from domain.lead import Lead
 from domain.lead_repository import LeadRepository

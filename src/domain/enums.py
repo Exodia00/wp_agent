@@ -23,3 +23,8 @@ class Service(str, Enum):
 class MessageOrigin(str, Enum):
     ORGANIC = 1
     AD = 2
+
+# todo: Use wherever language is needed
+class Language(str, Enum):
+    AR = "ar",
+    FR = "fr"

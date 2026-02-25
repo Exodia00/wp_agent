@@ -4,8 +4,8 @@ from flask import request, current_app
 
 from business.admin.admin_manager import AdminManager
 from business.flow.flow_manager import FlowManager
-from business.whatsapp_sender import extract_user_input
 from infrastructure.db import MySQLDatabase
+from infrastructure.whatsapp.whatsapp_parser import extract_user_input
 from setup import setup
 
 load_dotenv()
